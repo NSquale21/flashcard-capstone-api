@@ -1,10 +1,15 @@
 import * as express from 'express';
-import apiRouter from './routes';
+import config from './config';
+// import logger from './loaders/logger';
 
-const app = express();
+async function startServer() {
+    
+    const app = express();
 
-app.use(express.static('public'));
-app.use(apiRouter);
+    (await import('./loaders')).default({ app });
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Server listening on port: ${port}`));
+    const port = process.env.PORT || 3000;
+    app.listen(config.app.port, () => console.log(`Server listening on port: ${port}`));
+}
+
+startServer();
