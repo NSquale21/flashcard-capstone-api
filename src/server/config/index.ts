@@ -1,4 +1,4 @@
-import dotenv from 'dotenv';
+import * as dotenv from 'dotenv';
 
 const envFound = dotenv.config();
 
@@ -21,6 +21,7 @@ export default {
         secret: process.env.JWT_SECRET
     },
     logs :{
-        morgan: process.env.MORGAN
+        morgan: process.env.MORGAN,
+        level: process.env.LOG_LEVEL
     }
 }
