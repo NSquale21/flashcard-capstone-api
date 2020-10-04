@@ -1,8 +1,8 @@
-import type { TUsers } from './models';
+import type { User } from './models';
 import { Request } from 'express';
 
 export interface ReqUser extends Request {
-    user: TUsers;
+    user: User;
 }
 
 export type ResponseError = {
