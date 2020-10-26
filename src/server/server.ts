@@ -8,7 +8,7 @@ async function startServer() {
 
     (await import('./loaders')).default({ app });
 
-    const port = process.env.PORT || 3000;
+    const port = process.env.PORT || 3001;
     app.listen(config.app.port, () => console.log(`Server listening on port: ${port}`));
 }
 
