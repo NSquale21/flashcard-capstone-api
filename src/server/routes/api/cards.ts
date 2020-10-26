@@ -32,6 +32,7 @@ export default function(apiRouter: Router) {
 
     cardsRouter.post('/', celebrate({
         [Segments.BODY]: Joi.object().keys({
+            user_id: Joi.number().required(),
             title: Joi.string().required(),
             content: Joi.string().required()
         })
