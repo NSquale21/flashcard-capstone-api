@@ -18,9 +18,11 @@ export const Query = <T = any>(query: string, values?: any) => {
 import cards from './queries/cards';
 import decks from './queries/decks';
 import users from './queries/users';
+import cards_decks from './queries/cards-decks';
 
 export default {
     cards,
     decks,
-    users
+    users,
+    cards_decks
 }
