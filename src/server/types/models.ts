@@ -1,4 +1,4 @@
-export interface User {
+export interface Users {
     id?: number;
     name?: string;
     email?: string;
@@ -8,7 +8,7 @@ export interface User {
     created_at?: Date;
 }
 
-export interface Card {
+export interface Cards {
     id?: number;
     user_id?: number;
     title?: string;
@@ -16,7 +16,7 @@ export interface Card {
     created_at?: Date;
 }
 
-export interface Deck {
+export interface Decks {
     id?: number;
     user_id?: number;
     deck_name?: string;

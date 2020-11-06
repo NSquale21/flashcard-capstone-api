@@ -1,11 +1,11 @@
 import { Query } from '../';
-import type { Card, MySQLResponse } from '../../types/models';
+import type { Cards, MySQLResponse } from '../../types/models';
 
-const all = () => Query<Card[]>('SELECT * FROM cards');
+const all = () => Query<Cards[]>('SELECT * FROM cards');
 
-const one = (id: number) => Query<Card[]>('SELECT * FROM cards WHERE id = ?', [id]);
+const one = (id: number) => Query<Cards[]>('SELECT * FROM cards WHERE id = ?', [id]);
 
-const insert = (newCard: Card) => Query<MySQLResponse>('INSERT INTO cards SET ?', newCard);
+const insert = (newCard: Cards) => Query<MySQLResponse>('INSERT INTO cards SET ?', newCard);
 
 const update = (updatedCard: any, id: number) => Query<MySQLResponse>('UPDATE cards SET ? WHERE id = ?', [updatedCard, id]);
 
