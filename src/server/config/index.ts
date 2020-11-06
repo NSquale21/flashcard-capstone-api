@@ -18,7 +18,8 @@ export default {
 		api_prefix: process.env.API_PREFIX
     },
     auth : {
-        secret: process.env.JWT_SECRET
+        secret: process.env.JWT_SECRET,
+        expires: process.env.JWT_EXPIRES
     },
     logs :{
         morgan: process.env.MORGAN,
