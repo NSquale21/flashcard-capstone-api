@@ -7,10 +7,13 @@ export default function(apiRouter: Router) {
     apiRouter.use('/cardsdecks', cdRouter);
 
     cdRouter.post('/', async (req, res, next) => {
-        const cardDeckDTO = req.body;
+        const batchDTO = req.body;
+        const batchedIds = batchDTO.deck_id.map((deck: number) => {
+            return [Number(batchDTO.card_id), deck];
+        });
         try {
-            const results = await db.cards_decks.insert(cardDeckDTO.card_id, cardDeckDTO.deck_id);
-            res.json(results);
+            const result = await db.cards_decks.insert(batchedIds);
+            res.json(result);
         } catch (error) {
             next(error);
         }

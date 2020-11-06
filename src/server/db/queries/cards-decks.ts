@@ -1,6 +1,6 @@
 import { Query } from '../';
 
-const insert = (card_id: number, deck_id: number) => Query('INSERT INTO card_decks (card_id, deck_id) VALUES (?, ?)', [card_id, deck_id]);
+const insert = (values: Array<Array<number>>) => Query('INSERT INTO card_decks (card_id, deck_id) VALUES ?', [values]);
 
 export default {
     insert
