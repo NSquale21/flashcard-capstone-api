@@ -1,12 +1,13 @@
-import passport from 'passport';
-import LocalStrategy from 'passport-local';
-import passportJwt from 'passport-jwt';
+import * as passport from 'passport';
+import * as LocalStrategy from 'passport-local';
+import * as passportJwt from 'passport-jwt';
+import { Application } from 'express';
+import { comparePasswords } from '../utils/passwords';
+import type { Payload } from '../types/jwt';
 import config from '../config';
 import db from '../db';
-import { comparePasswords } from '../utils/passwords';
-import { Payload } from '../types/jwt';
 
-export default async function ({ app }: { app: Express.Application }) {
+export default async function ({ app }: { app: Application }) {
 	passport.serializeUser((user, done) => done(null, user));
 	passport.deserializeUser((user, done) => done(null, user));
 
@@ -34,17 +35,12 @@ export default async function ({ app }: { app: Express.Application }) {
 			},
 			async (payload: Payload, done) => {
 				try {
-					const [user] = await db.users.find('id', payload.userid);
-					if (user) {
-						delete user.password;
-						done(null, user);
-					} else {
-						done(null, false);
-					}
+					done(null, payload);
 				} catch (error) {
 					done(error);
 				}
 			}
 		)
 	);
+	app.use(passport.initialize());
 }
