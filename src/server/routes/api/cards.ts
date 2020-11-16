@@ -1,5 +1,7 @@
+import * as passport from 'passport';
 import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
+import type { ReqUser } from '../../types/express';
 import db from '../../db';
 
 const cardsRouter = Router();
@@ -30,13 +32,13 @@ export default function(apiRouter: Router) {
         }
     });
 
-    cardsRouter.post('/', celebrate({
+    cardsRouter.post('/', passport.authenticate('jwt'), celebrate({
         [Segments.BODY]: Joi.object().keys({
             user_id: Joi.number().required(),
             title: Joi.string().required(),
             content: Joi.string().required()
         })
-    }), async (req, res, next) => {
+    }), async (req: ReqUser, res, next) => {
         const cardDTO = req.body;
         try {
             const results = await db.cards.insert(cardDTO);
@@ -46,7 +48,7 @@ export default function(apiRouter: Router) {
         }
     });
 
-    cardsRouter.put('/:id', celebrate({
+    cardsRouter.put('/:id', passport.authenticate('jwt'), celebrate({
         [Segments.PARAMS]: Joi.object({
             id: Joi.number().required()
         }),
@@ -55,7 +57,7 @@ export default function(apiRouter: Router) {
             title: Joi.string().required(),
             content: Joi.string().required()
         })
-    }), async (req, res, next) => {
+    }), async (req: ReqUser, res, next) => {
         const id = Number(req.params.id);
         const updatedDTO = req.body;
         try {
@@ -66,11 +68,11 @@ export default function(apiRouter: Router) {
         }
     });
 
-    cardsRouter.delete('/:id', celebrate({
+    cardsRouter.delete('/:id', passport.authenticate('jwt'), celebrate({
         [Segments.PARAMS]: Joi.object({
             id: Joi.number().required()
         })
-    }), async (req, res, next) => {
+    }), async (req: ReqUser, res, next) => {
         const id = Number(req.params.id);
         try {
             const results = await db.cards.destroy(id);
