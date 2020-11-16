@@ -1,5 +1,6 @@
-export interface Payload {
+export type Payload = {
     userid?: number;
-    uniq?: string;
-    id?: number;
+    role?: number;
+    banned?: number;
+    email?: string;
 }

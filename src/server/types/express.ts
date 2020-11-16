@@ -1,8 +1,9 @@
 import type { Users } from './models';
 import { Request } from 'express';
+import { Payload } from './jwt';
 
 export interface ReqUser extends Request {
-    user: Users;
+    user: Users & Payload;
 }
 
 export type ResponseError = {
