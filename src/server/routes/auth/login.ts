@@ -1,13 +1,18 @@
+import * as passport from 'passport';
 import { Router } from 'express';
+import { createToken } from '../../utils/tokens';
+import type { ReqUser } from '../../types/express';
 
 const loginRouter = Router();
 
 export default function(authRouter: Router) {
     authRouter.use('/login', loginRouter);
 
-    loginRouter.get('/', async (req, res, next) => {
+    loginRouter.post('/', passport.authenticate('local'), async (req: ReqUser, res, next) => {
+        const { id, email, role, banned } = req.user;
         try {
-            res.json('Login Worked!');
+            const token = await createToken({ userid: id, email, role, banned });
+            res.json(token);
         } catch (error) {
             next (error);
         }
